@@ -1,0 +1,383 @@
+/* ===== Cores e fontes do projeto ===== */
+:root {
+    --tinta: #1b2436;        /* texto principal */
+    --tinta-suave: #5a6478;  /* textos secundários */
+    --mesa: #e6eaf0;         /* fundo da página */
+    --papel: #ffffff;        /* fundo dos painéis */
+    --linha: #cdd3dd;        /* bordas */
+    --etiqueta: #f4c542;     /* amarelo de etiqueta de patrimônio */
+    --livre: #1f7a52;        /* disponível / devolvido */
+    --livre-fundo: #e3f2ea;
+    --atraso: #b93a26;       /* atrasado / erro */
+    --atraso-fundo: #fbe7e3;
+    --uso: #2c4a86;          /* emprestado, em dia */
+    --uso-fundo: #e4eaf6;
+
+    --fonte: "Archivo", system-ui, sans-serif;
+    --fonte-codigo: "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: var(--fonte);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--tinta);
+    background: var(--mesa);
+}
+
+/* ===== Topo ===== */
+.topo {
+    background: var(--tinta);
+    color: #fff;
+}
+
+.topo-conteudo {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px 12px;
+}
+
+h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: 800;
+    font-stretch: 80%;          /* letras mais estreitas, cara de etiqueta */
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+}
+
+.resumo {
+    margin: 6px 0 0;
+    color: #c4cbd8;
+}
+
+.resumo strong { color: #fff; }
+.resumo .numero-atraso { color: #ffb4a6; }
+
+/* ===== Abas ===== */
+.abas {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    gap: 4px;
+}
+
+.aba {
+    font: inherit;
+    font-weight: 600;
+    color: #c4cbd8;
+    background: transparent;
+    border: 0;
+    border-bottom: 4px solid transparent;
+    padding: 12px 10px 10px;
+    cursor: pointer;
+}
+
+.aba:hover { color: #fff; }
+
+.aba[aria-selected="true"] {
+    color: #fff;
+    border-bottom-color: var(--etiqueta);
+}
+
+/* ===== Seções: formulário à esquerda, lista à direita ===== */
+main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 24px 40px;
+}
+
+.secao {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.secao[hidden] { display: none; }
+
+/* ===== Formulários ===== */
+.painel {
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    padding: 20px;
+    position: sticky;
+    top: 16px;
+}
+
+h2 {
+    margin: 0 0 14px;
+    font-size: 20px;
+    font-weight: 700;
+    font-stretch: 85%;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+input, select {
+    display: block;
+    width: 100%;
+    margin-top: 4px;
+    font: inherit;
+    font-weight: 400;
+    color: var(--tinta);
+    background: #fff;
+    border: 1px solid var(--linha);
+    border-radius: 4px;
+    padding: 8px 10px;
+}
+
+input:disabled {
+    background: var(--mesa);
+    color: var(--tinta-suave);
+}
+
+.marcar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.marcar input { width: auto; margin: 0; }
+
+.dica {
+    margin: 0 0 14px;
+    font-size: 14px;
+    color: var(--tinta-suave);
+}
+
+/* ===== Botões ===== */
+.botoes { display: flex; gap: 8px; }
+
+button { font: inherit; cursor: pointer; }
+
+.botao-principal {
+    font-weight: 700;
+    color: var(--tinta);
+    background: var(--etiqueta);
+    border: 0;
+    border-radius: 4px;
+    padding: 9px 16px;
+}
+
+.botao-principal:hover { background: #e8b52c; }
+
+.botao-secundario,
+.botao-pequeno {
+    font-weight: 600;
+    color: var(--tinta);
+    background: transparent;
+    border: 1px solid var(--linha);
+    border-radius: 4px;
+    padding: 8px 14px;
+}
+
+.botao-pequeno { font-size: 14px; padding: 5px 10px; }
+
+.botao-secundario:hover,
+.botao-pequeno:hover { border-color: var(--tinta); }
+
+.botao-perigo { color: var(--atraso); }
+.botao-perigo:hover { border-color: var(--atraso); }
+
+/* Foco visível para quem usa teclado */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+    outline: 3px solid var(--etiqueta);
+    outline-offset: 2px;
+}
+
+/* ===== Filtros ===== */
+.filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.filtros label { margin: 0; min-width: 160px; }
+
+/* ===== Etiquetas de patrimônio (o destaque visual) ===== */
+.etiquetas {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+}
+
+.etiqueta {
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* A faixa amarela com o código e o "código de barras" */
+.etiqueta-faixa {
+    background: var(--etiqueta);
+    padding: 10px 14px 8px;
+}
+
+.etiqueta-codigo {
+    font-family: var(--fonte-codigo);
+    font-weight: 700;
+    font-size: 18px;
+    letter-spacing: 0.04em;
+}
+
+.etiqueta-barras {
+    height: 22px;
+    margin-top: 4px;
+    /* listras finas e grossas, imitando um código de barras */
+    background: repeating-linear-gradient(90deg,
+        var(--tinta) 0 2px, transparent 2px 4px,
+        var(--tinta) 4px 5px, transparent 5px 8px,
+        var(--tinta) 8px 11px, transparent 11px 12px,
+        var(--tinta) 12px 13px, transparent 13px 16px);
+    opacity: 0.85;
+}
+
+.etiqueta-corpo { padding: 12px 14px 14px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+
+.etiqueta-nome { margin: 0; font-weight: 700; font-size: 17px; line-height: 1.3; }
+
+.etiqueta-tipo { margin: 0; font-size: 14px; color: var(--tinta-suave); }
+
+.etiqueta-rodape {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.etiqueta-acoes { display: flex; gap: 6px; }
+
+/* ===== Selos de situação ===== */
+.selo {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 999px;
+    padding: 2px 10px;
+    white-space: nowrap;
+}
+
+.selo-livre  { color: var(--livre);  background: var(--livre-fundo); }
+.selo-uso    { color: var(--uso);    background: var(--uso-fundo); }
+.selo-atraso { color: var(--atraso); background: var(--atraso-fundo); }
+
+/* ===== Listas de pessoas e empréstimos ===== */
+.pessoas, .emprestimos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: var(--papel);
+    border: 1px solid var(--linha);
+    border-radius: 6px;
+}
+
+.pessoas li, .emprestimos li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.pessoas li:last-child, .emprestimos li:last-child { border-bottom: 0; }
+
+.pessoas li.vazio, .emprestimos li.vazio { display: block; border: 0; }
+
+.item-titulo { margin: 0; font-weight: 700; }
+.item-detalhe { margin: 2px 0 0; font-size: 14px; color: var(--tinta-suave); }
+
+.item-lado { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+/* Empréstimo atrasado ganha uma marca vermelha na lateral */
+.emprestimos li.atrasado { box-shadow: inset 4px 0 0 var(--atraso); }
+
+.codigo { font-family: var(--fonte-codigo); font-weight: 500; font-size: 14px; }
+
+/* ===== Histórico de uma pessoa ===== */
+.historico {
+    margin-top: 20px;
+}
+
+.historico-topo {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.historico h3 { margin: 0; font-size: 18px; }
+
+/* ===== Lista vazia ===== */
+.vazio {
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--tinta-suave);
+    background: var(--papel);
+    border: 1px dashed var(--linha);
+    border-radius: 6px;
+    grid-column: 1 / -1;
+}
+
+/* ===== Aviso (sucesso ou erro) ===== */
+.aviso {
+    position: fixed;
+    left: 50%;
+    bottom: 24px;
+    transform: translate(-50%, 20px);
+    max-width: min(520px, calc(100% - 32px));
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    color: #fff;
+    background: var(--tinta);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.aviso.visivel { opacity: 1; transform: translate(-50%, 0); }
+.aviso.erro { background: var(--atraso); }
+
+/* ===== Rodapé ===== */
+.rodape {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+    font-size: 14px;
+    color: var(--tinta-suave);
+}
+
+.rodape a { color: var(--tinta); }
+
+/* ===== Celular: uma coluna só ===== */
+@media (max-width: 760px) {
+    .secao { grid-template-columns: 1fr; }
+    .painel { position: static; }
+    .pessoas li, .emprestimos li { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aviso { transition: none; }
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Balcão de equipamentos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topo">
+    <div class="topo-conteudo">
+        <h1>Balcão de equipamentos</h1>
+        <!-- Resumo preenchido pelo JavaScript -->
+        <p class="resumo" id="resumo">Carregando…</p>
+    </div>
+
+    <!-- As três abas: cada botão mostra uma seção -->
+    <nav class="abas" role="tablist">
+        <button class="aba" role="tab" data-aba="equipamentos" aria-selected="true">Equipamentos</button>
+        <button class="aba" role="tab" data-aba="pessoas" aria-selected="false">Pessoas</button>
+        <button class="aba" role="tab" data-aba="emprestimos" aria-selected="false">Empréstimos</button>
+    </nav>
+</header>
+
+<main>
+
+    <!-- ===================== EQUIPAMENTOS ===================== -->
+    <section class="secao" id="secao-equipamentos">
+        <form class="painel" id="form-equipamento">
+            <h2 id="titulo-form-equipamento">Cadastrar equipamento</h2>
+
+            <label>Patrimônio
+                <input name="patrimonio" required placeholder="NB-001" autocomplete="off">
+            </label>
+            <label>Nome
+                <input name="nome" required placeholder="Notebook Dell Latitude" autocomplete="off">
+            </label>
+            <label>Tipo
+                <select name="tipo" required>
+                    <option value="NOTEBOOK">Notebook</option>
+                    <option value="MONITOR">Monitor</option>
+                    <option value="HEADSET">Headset</option>
+                    <option value="TECLADO">Teclado</option>
+                    <option value="MOUSE">Mouse</option>
+                    <option value="OUTRO">Outro</option>
+                </select>
+            </label>
+
+            <div class="botoes">
+                <button type="submit" class="botao-principal" id="botao-salvar-equipamento">Cadastrar</button>
+                <button type="button" class="botao-secundario" id="botao-cancelar-edicao" hidden>Cancelar</button>
+            </div>
+        </form>
+
+        <div class="lista-area">
+            <div class="filtros">
+                <label>Tipo
+                    <select id="filtro-tipo">
+                        <option value="">Todos</option>
+                        <option value="NOTEBOOK">Notebook</option>
+                        <option value="MONITOR">Monitor</option>
+                        <option value="HEADSET">Headset</option>
+                        <option value="TECLADO">Teclado</option>
+                        <option value="MOUSE">Mouse</option>
+                        <option value="OUTRO">Outro</option>
+                    </select>
+                </label>
+                <label>Situação
+                    <select id="filtro-disponivel">
+                        <option value="">Todas</option>
+                        <option value="true">Disponíveis</option>
+                        <option value="false">Emprestados</option>
+                    </select>
+                </label>
+            </div>
+            <div class="etiquetas" id="lista-equipamentos"></div>
+        </div>
+    </section>
+
+    <!-- ===================== PESSOAS ===================== -->
+    <section class="secao" id="secao-pessoas" hidden>
+        <form class="painel" id="form-colaborador">
+            <h2>Cadastrar pessoa</h2>
+            <label>Nome
+                <input name="nome" required placeholder="Ana Souza" autocomplete="off">
+            </label>
+            <label>E-mail
+                <input name="email" type="email" required placeholder="ana@elatech.com" autocomplete="off">
+            </label>
+            <label>Cargo
+                <input name="cargo" placeholder="Analista" autocomplete="off">
+            </label>
+            <div class="botoes">
+                <button type="submit" class="botao-principal">Cadastrar</button>
+            </div>
+        </form>
+
+        <div class="lista-area">
+            <ul class="pessoas" id="lista-colaboradores"></ul>
+            <div class="historico" id="historico" hidden></div>
+        </div>
+    </section>
+
+    <!-- ===================== EMPRÉSTIMOS ===================== -->
+    <section class="secao" id="secao-emprestimos" hidden>
+        <form class="painel" id="form-emprestimo">
+            <h2>Registrar empréstimo</h2>
+            <label>Equipamento
+                <select name="equipamentoId" id="select-equipamento" required></select>
+            </label>
+            <label>Pessoa
+                <select name="colaboradorId" id="select-colaborador" required></select>
+            </label>
+            <p class="dica">A devolução fica prevista para daqui a 14 dias.</p>
+            <div class="botoes">
+                <button type="submit" class="botao-principal">Registrar empréstimo</button>
+            </div>
+        </form>
+
+        <div class="lista-area">
+            <div class="filtros">
+                <label class="marcar">
+                    <input type="checkbox" id="filtro-atrasados"> Mostrar só os atrasados
+                </label>
+            </div>
+            <ul class="emprestimos" id="lista-emprestimos"></ul>
+        </div>
+    </section>
+
+</main>
+
+<!-- Aviso que aparece embaixo depois de cada ação -->
+<div class="aviso" id="aviso" role="status" aria-live="polite"></div>
+
+<footer class="rodape">
+    API: <a href="swagger-ui/index.html">documentação no Swagger</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

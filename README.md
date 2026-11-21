@@ -4,6 +4,20 @@ API REST para controlar o empréstimo de equipamentos (notebooks, monitores, hea
 
 **API no Render:** https://projeto2-elatech-emprestimo.onrender.com
 
+## Interface (front-end)
+
+Abrindo o endereço da API no navegador, aparece o **Balcão de equipamentos**: uma tela para cadastrar equipamentos e pessoas, registrar empréstimos e devoluções e ver o que está atrasado.
+
+- Feita com HTML, CSS e JavaScript puro, sem framework.
+- Fica em `src/main/resources/static`, e o próprio Spring Boot entrega a página. Não precisa de outro deploy.
+- Conversa com a API usando `fetch`, nas mesmas rotas listadas abaixo. Quando uma regra é quebrada, a mensagem da API aparece na tela.
+
+| Arquivo | O que tem |
+|---|---|
+| `index.html` | A estrutura da página: abas, formulários e listas |
+| `style.css` | O visual (cada equipamento aparece como uma etiqueta de patrimônio) |
+| `app.js` | As chamadas à API e a montagem das listas |
+
 ## Tecnologias
 
 - Java 25
@@ -17,7 +31,7 @@ API REST para controlar o empréstimo de equipamentos (notebooks, monitores, hea
 ### Pelo IntelliJ
 1. Abrir a pasta do projeto no IntelliJ e esperar o Maven baixar as dependências.
 2. Rodar a classe `EmprestimosApplication` (botão ▶ verde).
-3. A API sobe em `http://localhost:8080`.
+3. A API sobe em `http://localhost:8080`, e a interface abre nesse mesmo endereço.
 
 ### Pelo terminal
 ```bash
@@ -94,6 +108,8 @@ Quando uma regra é quebrada, a API responde com erro 500 e a mensagem da regra.
 - `EmprestimoTest`: 7 casos (datas do empréstimo, devolução, devolução dupla e os 4 casos de atraso)
 
 ## Bônus feitos
+
+- **Interface web:** o Balcão de equipamentos, descrito no início deste README
 
 - **Swagger (N1):** documentação das rotas em `/swagger-ui/index.html`
 - **Actuator (N1):** `GET /actuator/health` responde `{"status":"UP"}`
