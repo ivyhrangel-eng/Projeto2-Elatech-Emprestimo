@@ -1,0 +1,288 @@
+{
+  "info": {
+    "name": "Projeto 2 - Empréstimo de Equipamentos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "01 Cadastrar notebook (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/equipamentos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patrimonio\": \"NB-001\",\n  \"nome\": \"Notebook Dell\",\n  \"tipo\": \"NOTEBOOK\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "02 Mesmo patrimônio de novo (erro R1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/equipamentos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patrimonio\": \"NB-001\",\n  \"nome\": \"Notebook Dell\",\n  \"tipo\": \"NOTEBOOK\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "03 Monitor com disponivel false (201, nasce true - R2)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/equipamentos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patrimonio\": \"MN-001\",\n  \"nome\": \"Monitor LG\",\n  \"tipo\": \"MONITOR\",\n  \"disponivel\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "04 Cadastrar headset (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/equipamentos",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patrimonio\": \"HS-001\",\n  \"nome\": \"Headset JBL\",\n  \"tipo\": \"HEADSET\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "05 Cadastrar Ana (201)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/colaboradores",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Ana Souza\",\n  \"email\": \"ana@empresa.com\",\n  \"cargo\": \"Analista\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "06 Mesmo e-mail de novo (erro R3)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/colaboradores",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Ana Souza\",\n  \"email\": \"ana@empresa.com\",\n  \"cargo\": \"Analista\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "07a Emprestar notebook pra Ana (201 - R5)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?equipamentoId=1&colaboradorId=1"
+      }
+    },
+    {
+      "name": "07b Conferir notebook indisponível",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/equipamentos/1"
+      }
+    },
+    {
+      "name": "08 Emprestar notebook de novo (erro R4)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?equipamentoId=1&colaboradorId=1"
+      }
+    },
+    {
+      "name": "09a Emprestar pra colaborador 99 (erro)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?equipamentoId=2&colaboradorId=99"
+      }
+    },
+    {
+      "name": "09b Monitor continua disponível",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/equipamentos/2"
+      }
+    },
+    {
+      "name": "10 Só indisponíveis (só o notebook)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/equipamentos?disponivel=false"
+      }
+    },
+    {
+      "name": "11a Devolver empréstimo 1 (200 - R7)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos/1/devolucao"
+      }
+    },
+    {
+      "name": "11b Notebook disponível de novo",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/equipamentos/1"
+      }
+    },
+    {
+      "name": "12 Devolver de novo (erro R6)",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos/1/devolucao"
+      }
+    },
+    {
+      "name": "13 Remover notebook (erro R9)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": "{{baseUrl}}/equipamentos/1"
+      }
+    },
+    {
+      "name": "14a Emprestar monitor pra Ana",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?equipamentoId=2&colaboradorId=1"
+      }
+    },
+    {
+      "name": "14b (antes: UPDATE no H2) Listar atrasados (R8)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?atrasados=true"
+      }
+    },
+    {
+      "name": "15 Emprestar headset pra Ana (erro R10)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{baseUrl}}/emprestimos?equipamentoId=3&colaboradorId=1"
+      }
+    },
+    {
+      "name": "16 Histórico da Ana",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/colaboradores/1/emprestimos"
+      }
+    },
+    {
+      "name": "Extra: atualizar headset (PUT)",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": "{{baseUrl}}/equipamentos/3",
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nome\": \"Headset JBL Tune\",\n  \"tipo\": \"HEADSET\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Extra: health (Actuator)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{baseUrl}}/actuator/health"
+      }
+    }
+  ]
+}
