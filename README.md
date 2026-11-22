@@ -40,6 +40,14 @@ mvn spring-boot:run
 
 O arquivo `postman_plano_de_testes.json` tem o plano de testes pronto para importar no Postman.
 
+### Dados de exemplo (para demonstração)
+Rodando com o perfil `demo`, a API já começa com dois equipamentos, duas pessoas e um empréstimo **atrasado** (feito há 28 dias, com o prazo vencido há 14). Só funciona com o banco vazio: apague a pasta `dados` antes.
+
+- IntelliJ: na configuração de execução, em **Program arguments**, coloque `--spring.profiles.active=demo`
+- Terminal: `mvn spring-boot:run -Dspring-boot.run.profiles=demo`
+
+Sem o perfil `demo` (como no Render), o banco começa vazio.
+
 ### Testes
 - IntelliJ: botão direito em `src/test/java` → **Run 'All Tests'**
 - Terminal: `mvn test`
